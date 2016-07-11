@@ -18,12 +18,18 @@ int main()
 
 	// build the message that we intend to write
 	const string greeting = "Hello, " + name + "!";
-
+	cout << endl;	
+	
 	// the number of blanks surround the greeting
-	const int pad = 1;
+	// Exercise 2-1 pad = 0
+	// Exercise 2-3 
+	cout << "Please enter amout of padding: ";
+	string::size_type pad;
+	cin >> pad;
+	cout << endl;
 
 	// the number of rows and columns to write
-	const int rows = pad * 2 + 3;
+	const unsigned int rows = pad * 2 + 3;
 	const string::size_type cols = greeting.size() + pad * 2 + 2;
 
 	//Write a blank line to separate the output from the input
@@ -31,7 +37,7 @@ int main()
 	
 	// write rows rows of output
 	// invariant: we have written r rows so far
-	for (int r = 0; r != rows; ++r) {
+	for (unsigned int r = 0; r != rows; ++r) {
 		
 		string::size_type c = 0;
 		
@@ -45,11 +51,15 @@ int main()
 				if (r == 0 || r == rows - 1 ||
 					c == 0 || c == cols - 1) {
 					cout << "*";
+					++c;			
+				} else if (r != pad + 1 && c != pad + 1) {
+					string spaces(greeting.size() + pad * 2, ' ');
+					cout << spaces;
+					c += greeting.size() + pad * 2;
 				} else {
 					cout << " ";
-				}
-				
-				++c;
+					c++;
+				}	
 			}
 
 		}
