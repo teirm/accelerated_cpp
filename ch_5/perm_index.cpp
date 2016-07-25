@@ -89,11 +89,12 @@ int main()
 		}
 	}
 	
+	// Can look at original to see how it was supposed to be :D
 	sort(rotations.begin(), rotations.end(), compare);
 
 	cout << "Key\tValue" << endl << endl;
 	for (i = 0; i < rotations.size(); i++) {
-		cout << unrotate_and_print(rotations[i], i) << endl;
+		cout << rotations[i] << endl;	
 	}
 	return 0;
 }
