@@ -39,11 +39,34 @@ string rotate_string(const string& s)
 	return ret;
 }	
 
+string unrotate_and_print(const string& s, int separator)
+{
+
+	vector<string> fragments;
+	vector<string>::size_type i;
+	
+	fragments = split(s);
+	
+	string key = "";
+	string value;
+		
+	for (i = 0; i < fragments.size(); i++) {
+		if (i < fragments.size() - separator) {
+			value += fragments[i];
+			value += " ";
+		} else {
+			key += fragments[i];
+			key += " ";
+		}			
+	}
+	return key + "\t" + value;	
+}
 
 int main()
 {
 	string input;
 	string perm;
+	string head;	
 		
 	vector<string> fragments;	
 	vector<string> input_strings;
@@ -68,6 +91,9 @@ int main()
 	
 	sort(rotations.begin(), rotations.end(), compare);
 
-
+	cout << "Key\tValue" << endl << endl;
+	for (i = 0; i < rotations.size(); i++) {
+		cout << unrotate_and_print(rotations[i], i) << endl;
+	}
 	return 0;
 }
