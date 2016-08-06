@@ -18,24 +18,14 @@ bool compare(const string& x , const string& y)
 	return x < y;
 }
 
-string rotate_string(const string& s)
+vector<string> rotate_string(const vector<string>& s_vec, int shifts)
 {
-	vector<string> fragments;
-	string head_fragment;
-	string ret;
-		
-	fragments = split(s);
-	head_fragment = fragments[0];
+	vector<string> ret = s_vec;
+	vector<string>::size_type org_size = s_vec.size();
 	
-	fragments.erase(fragments.begin(), fragments.begin()+1);
-	fragments.push_back(head_fragment);	
+	ret.insert(ret.begin(), s_vec.begin() + shifts, s_vec.end());
+	ret.erase(ret.begin() + org_size, ret.end());
 
-	vector<string>::size_type i;
-	for (i = 0; i < fragments.size(); i++) {
-		ret += fragments[i];
-		ret += " ";
-	}
-	
 	return ret;
 }	
 
@@ -62,39 +52,51 @@ string unrotate_and_print(const string& s, int separator)
 	return key + "\t" + value;	
 }
 
+void print_string_vec(const vector<string>& s_vec) {
+
+	vector<string>::size_type i;
+	
+	for (i = 0; i < s_vec.size(); i++) {
+		cout << s_vec[i] << " ";
+	}
+	
+	cout << endl;
+}
+
 int main()
 {
 	string input;
-	string perm;
 	string head;	
 		
 	vector<string> fragments;	
 	vector<string> input_strings;
 	vector<string> rotations;
-	
+
 	while (cin) {
 		getline(cin, input);
 		input_strings.push_back(input);	
 	}
 
 	cout << endl;
-	
-	vector<string>::size_type i, j;
-	perm = input_strings[0];
-	for (i = 0; i < input_strings.size(); i++) {
-		fragments = split(input_strings[i]);
-		for (j = 0; j < fragments.size(); j++) {
-			perm = rotate_string(perm);
-			rotations.push_back(perm);
-		}
-	}
-	
-	// Can look at original to see how it was supposed to be :D
-	sort(rotations.begin(), rotations.end(), compare);
 
-	cout << "Key\tValue" << endl << endl;
-	for (i = 0; i < rotations.size(); i++) {
-		cout << rotations[i] << endl;	
-	}
+	print_string_vec(input_strings);
+
+	vector<string>::size_type shift_counter;
+	
+	vector<string> string_fragments = split(input_strings[0]);
+	vector<string> perms = string_fragments;	
+	vector<string>::size_type original_size = perms.size();
+
+/*	perms.insert(perms.begin(), string_fragments.begin() + 1, string_fragments.end());	
+
+	perms.erase(perms.begin() + original_size, perms.end());
+	
+	print_string_vec(perms);
+*/	
+	for (shift_counter = 0; shift_counter < string_fragments.size(); shift_counter++) {
+		rotations = rotate_string(string_fragments, shift_counter);
+		print_string_vec(rotations);	
+	} 
+
 	return 0;
 }
