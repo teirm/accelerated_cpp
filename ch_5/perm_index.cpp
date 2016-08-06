@@ -18,12 +18,12 @@ bool compare(const string& x , const string& y)
 	return x < y;
 }
 
-vector<string> rotate_string(const vector<string>& s_vec, int shifts)
+vector<string> rotate_string(const vector<string>& s_vec, int shift)
 {
 	vector<string> ret = s_vec;
 	vector<string>::size_type org_size = s_vec.size();
 	
-	ret.insert(ret.begin(), s_vec.begin() + shifts, s_vec.end());
+	ret.insert(ret.begin(), s_vec.begin() + shift, s_vec.end());
 	ret.erase(ret.begin() + org_size, ret.end());
 
 	return ret;
@@ -81,20 +81,14 @@ int main()
 
 	print_string_vec(input_strings);
 
-	vector<string>::size_type shift_counter;
+	vector<string>::size_type shift;
 	
-	vector<string> string_fragments = split(input_strings[0]);
-	vector<string> perms = string_fragments;	
+	vector<string> str_fragments = split(input_strings[0]);
+	vector<string> perms = str_fragments;	
 	vector<string>::size_type original_size = perms.size();
 
-/*	perms.insert(perms.begin(), string_fragments.begin() + 1, string_fragments.end());	
-
-	perms.erase(perms.begin() + original_size, perms.end());
-	
-	print_string_vec(perms);
-*/	
-	for (shift_counter = 0; shift_counter < string_fragments.size(); shift_counter++) {
-		rotations = rotate_string(string_fragments, shift_counter);
+	for (shift = 0; shift < str_fragments.size(); shift++) {
+		rotations = rotate_string(str_fragments, shift);
 		print_string_vec(rotations);	
 	} 
 
