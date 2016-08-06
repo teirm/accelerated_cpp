@@ -13,6 +13,15 @@ using std::endl;
 using std::vector;
 using std::sort;
 
+/* NOTE (6-AUG-16): A really interesting way to
+ * keep the index of the shift would be to use
+ * a hash map: h(perm) -> index.  Therefore 
+ * even on sorting the position of the start
+ * would be maintained.  Come back once you
+ * cover hashing.
+ */
+
+
 bool compare(const string& x , const string& y)
 {
 	return x < y;
@@ -29,12 +38,21 @@ vector<string> rotate_string(const vector<string>& s_vec, int shift)
 	return ret;
 }	
 
-string unrotate_and_print(const string& s, int separator)
+string vector_to_string(const vector<string>& s_vec)
 {
-	return "Cows";
+	string ret;	
+	vector<string>::size_type i;
+
+	for (i = 0; i < s_vec.size(); i++) {
+		ret += s_vec[i];
+	
+		i < s_vec.size() - 1 ? ret += " ":ret += "";
+	}
+
+	return ret;
 }
 
-void print_string_vec(const vector<string>& s_vec) {
+void print_str_vec(const vector<string>& s_vec) {
 
 	vector<string>::size_type i;
 	
@@ -48,11 +66,10 @@ void print_string_vec(const vector<string>& s_vec) {
 int main()
 {
 	string input;
-	string head;	
 		
-	vector<string> fragments;	
 	vector<string> input_strings;
-	vector<string> rotations;
+	vector<string> rotation;
+	vector<string> permutations;
 
 	while (cin) {
 		getline(cin, input);
@@ -61,17 +78,13 @@ int main()
 
 	cout << endl;
 
-	print_string_vec(input_strings);
-
 	vector<string>::size_type shift;
 	
 	vector<string> str_fragments = split(input_strings[0]);
-	vector<string> perms = str_fragments;	
-	vector<string>::size_type original_size = perms.size();
 
 	for (shift = 0; shift < str_fragments.size(); shift++) {
-		rotations = rotate_string(str_fragments, shift);
-		print_string_vec(rotations);	
+		rotation = rotate_string(str_fragments, shift);
+		cout << vector_to_string(rotation) << endl;	
 	} 
 
 	return 0;
