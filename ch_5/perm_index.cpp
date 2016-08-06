@@ -31,25 +31,7 @@ vector<string> rotate_string(const vector<string>& s_vec, int shift)
 
 string unrotate_and_print(const string& s, int separator)
 {
-
-	vector<string> fragments;
-	vector<string>::size_type i;
-	
-	fragments = split(s);
-	
-	string key = "";
-	string value;
-		
-	for (i = 0; i < fragments.size(); i++) {
-		if (i < fragments.size() - separator) {
-			value += fragments[i];
-			value += " ";
-		} else {
-			key += fragments[i];
-			key += " ";
-		}			
-	}
-	return key + "\t" + value;	
+	return "Cows";
 }
 
 void print_string_vec(const vector<string>& s_vec) {
