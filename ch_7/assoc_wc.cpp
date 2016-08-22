@@ -1,15 +1,20 @@
 // Counting word count with associative arrays
 
+#include <vector>
 #include <iostream>
 #include <string>
 #include <map>
 
+#include "../ch_6/str_split.cpp"
+
 using std::map;
 using std::string;
+using std::vector;
 
 using std::cin;
 using std::cout;
 using std::endl;
+using std::istream;
 
 int main()
 {
