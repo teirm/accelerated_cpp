@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <memory>
+#include <iostream>
 
 template <class T> class Vec {
 public:
@@ -36,6 +37,12 @@ public:
 			grow();
 		unchecked_append(val);	// append the new element
 	}
+	
+	void erase (iterator);
+	void erase (iterator, iterator);
+	
+	void print();	
+				
 
 private:
 	// implementation
@@ -55,6 +62,47 @@ private:
 	void unchecked_append(const T&);
 };
 
+template <class T>
+void Vec<T>::print() 
+{
+	iterator start = begin();
+	
+	while (start != avail) {
+		std::cout << *start++ << std::endl;
+	}
+}
+
+template <class T>
+void Vec<T>::erase(iterator it)
+{
+	
+	// Destroy value at it	
+	alloc.destroy(it);			
+	
+	// Move all elements after it one position back
+	while (it != avail) {
+		*it = *(it+1);
+		it++;	
+	}
+	alloc.destroy(avail--);	
+}
+
+template <class T>
+void Vec<T>::erase(iterator start, iterator end) {
+	
+	ptrdiff_t offset = start - end;
+	
+	// destroy values between start and end
+	while (start != end) {
+		alloc.destroy(start++);
+	}
+
+	// move all values from end to avail back by total number deleted 
+	while (end != avail) {
+		*(end - offset) = *end;
+		alloc.destroy(end++);		
+	}
+}
 
 template <class T>
 Vec<T>& Vec<T>::operator=(const Vec& rhs)
@@ -108,10 +156,10 @@ template <class T> void Vec<T>::uncreate()
 
 template <class T> void Vec<T>::grow()
 {
-	size_type new_size = max(2 * (limit - data), ptrdiff_t(1));
+	size_type new_size = std::max(2 * (limit - data), ptrdiff_t(1));
 
 	iterator new_data = alloc.allocate(new_size);
-	iterator new_avail = unitialized_copy(data, avail, new_data);
+	iterator new_avail = std::uninitialized_copy(data, avail, new_data);
 	
 	uncreate();
 
@@ -124,4 +172,26 @@ template <class T> void Vec<T>::grow()
 template <class T> void Vec<T>::unchecked_append(const T& val)
 {
 	alloc.construct(avail++, val);
+}
+
+int main()
+{
+	int input;
+	Vec<int> my_vec;
+
+	while (std::cin >> input)
+		my_vec.push_back(input);
+
+	my_vec.print();
+
+
+	Vec<int>::iterator it = my_vec.begin();
+
+	it += 3;
+	
+	my_vec.erase(it);
+
+	my_vec.print();
+
+	return 0;
 }
