@@ -130,7 +130,7 @@ template <class T> void Vec<T>::create(size_type n, const T& val)
 {
 	data = alloc.allocate(n);
 	limit = avail = data + n;
-	uninitialized_fill(data, limit, val);
+	std::uninitialized_fill(data, limit, val);
 }
 
 template<class T>
