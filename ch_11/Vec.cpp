@@ -102,6 +102,8 @@ void Vec<T>::erase(iterator start, iterator end) {
 		*(end - offset) = *end;
 		alloc.destroy(end++);		
 	}
+
+	avail -= offset;
 }
 
 template <class T>
@@ -188,9 +190,7 @@ int main()
 	Vec<int>::iterator it = my_vec.begin();
 
 	it += 3;
-	
 	my_vec.erase(it);
-
 	my_vec.print();
 
 	return 0;
