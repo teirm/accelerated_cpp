@@ -8,6 +8,7 @@
 class Str {
 
 	friend std::istream& operator>>(std::istream&, Str&);
+	friend bool operator==(const Str& s, const Str& t);
 
 public:
 	Str& operator+=(const Str& s) {
@@ -73,4 +74,27 @@ Str operator+(const Str& s, const Str& t)
 	r += t;
 	return r;
 }
-	 
+
+bool operator==(const Str& s, const Str& t)
+{
+	if (s.size() != t.size())
+		return false;
+
+	Str::size_type i;
+
+	for (i = 0; i < s.size(); i++)
+		if (s[i] != t[i])
+			return false;
+	
+	return true;
+}
+
+bool operator!=(const Str& s, const Str& t)
+{
+	return !(s==t);
+}
+
+bool operator<(const Str& s, const Str& t)
+{
+
+}
