@@ -9,16 +9,28 @@ int main()
 	Core s1;
 	Grad s2;
 
+	std::cout << "p1" << std::endl;
+	// Core functions
 	p1->grade();
 	p1->name();
 
+	std::cout << "p2" << std::endl;
+	// Grad Function
 	p2->grade();
+	// Core Function
 	p2->name();
 
+
+	std::cout << "s1" << std::endl;
+	// Core Functions
 	s1.grade();
+	// Core Function
 	s1.name();
 
+	std::cout << "s2" << std::endl;
+	// Core Function
 	s2.name();
+	// Grad Function
 	s2.grade();
 
 	return 0;
